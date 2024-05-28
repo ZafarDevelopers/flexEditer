@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexCode Editor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>FlexCode Editor</h1>
+    </header>
+    <main>
+        <div class="tabs">
+            <button class="tab-button" onclick="openTab(event, 'editor')">Code Editor</button>
+            <button class="tab-button" onclick="openTab(event, 'result')">Result</button>
+        </div>
+        <div id="editor" class="tab-content">
+            <textarea id="codeInput" placeholder="Write your HTML, CSS, and JavaScript here..."></textarea>
+        </div>
+        <div id="result" class="tab-content">
+            <iframe id="resultFrame"></iframe>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
