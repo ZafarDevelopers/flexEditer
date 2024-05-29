@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexCode Editor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>FlexCode Editor</h1>
+        <p>Hello! coders!<br/> This is a live code editor for you, here,<br/> You can write and view live results of your HTML/CSS/JavaScript code.</p>
+    </header>
+    <main>
+        <div class="tabs">
+            <button class="tab-button" onclick="openTab(event, 'editor')">Code Editor</button>
+            <button class="tab-button" onclick="openTab(event, 'result')">Result</button>
+        </div>
+        <div id="editor" class="tab-content">
+            <textarea id="codeInput" placeholder="Write your HTML, CSS, and JavaScript here..."></textarea>
+            <button id="copyCodeButton" onclick="copyCode()">Copy Code</button>
+        </div>
+        <div id="result" class="tab-content">
+            <iframe id="resultFrame"></iframe>
+        </div>
+    </main>
+    <footer>
+        <p>Powered by Zafar Saeed.</p>
+        <p>Copyright 2024, All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
