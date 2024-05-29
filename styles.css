@@ -50,11 +50,18 @@ header {
 #codeInput {
     flex-grow: 1;
     width: 100%;
-    height: calc(100% - 1em);
+    height: calc(100% - 2.5em); /* Adjusted to accommodate the button */
     font-family: monospace;
     font-size: 1em;
     padding: 1em;
     box-sizing: border-box;
+}
+
+#copyCodeButton {
+    margin-top: 1em;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    cursor: pointer;
 }
 
 #iframe {

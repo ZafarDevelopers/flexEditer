@@ -29,3 +29,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Update the result iframe live as code is typed
 document.getElementById('codeInput').addEventListener('input', updateResult);
+
+function copyCode() {
+    const code = document.getElementById('codeInput').value;
+    navigator.clipboard.writeText(code).then(() => {
+        alert('Code copied to clipboard');
+    }).catch(err => {
+        console.error('Could not copy text: ', err);
+    });
+}
