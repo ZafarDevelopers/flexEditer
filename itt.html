@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Text Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #imageContainer {
+            margin-top: 20px;
+        }
+        #output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        button {
+            margin-top: 20px;
+        }
+        #progress {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image to Text Converter</h1>
+    <input type="file" id="imageUpload" accept="image/*">
+    <div id="imageContainer"></div>
+    <button id="convertButton" onclick="convertImageToText()" style="display:none;">Convert Image to Text</button>
+    <div id="progress">
+        <progress id="progressBar" value="0" max="1"></progress>
+    </div>
+    <div id="output"></div>
+    <button id="copyButton" onclick="copyText()" style="display:none;">Copy Text</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/tesseract.min.js"></script>
+    <script>
+        document.getElementById('imageUpload').addEventListener('change', uploadImage);
+
+        function uploadImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const img = new Image();
+                    img.src = reader.result;
+                    img.onload = function() {
+                        const imageContainer = document.getElementById('imageContainer');
+                        imageContainer.innerHTML = '';  // Clear previous images
+                        imageContainer.appendChild(img);
+
+                        document.getElementById('convertButton').style.display = 'inline-block';
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function convertImageToText() {
+            const convertButton = document.getElementById('convertButton');
+            convertButton.textContent = 'Converting...';
+            const progress = document.getElementById('progress');
+            progress.style.display = 'block';
+
+            const img = document.querySelector('#imageContainer img');
+            if (img) {
+                const { data: { text } } = await Tesseract.recognize(
+                    img,
+                    'eng',
+                    {
+                        logger: m => {
+                            if (m.status === 'recognizing text') {
+                                document.getElementById('progressBar').value = m.progress;
+                            }
+                        }
+                    }
+                );
+                document.getElementById('output').textContent = text;
+                document.getElementById('copyButton').style.display = 'inline-block';
+            }
+            
+            convertButton.textContent = 'Convert Image to Text';
+            progress.style.display = 'none';
+        }
+
+        function copyText() {
+            const text = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Text copied to clipboard');
+            });
+        }
+    </script>
+</body>
+</html>
