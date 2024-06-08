@@ -1,21 +1,23 @@
 /* script.js */
 
-
-document.querySelector("#copyCodeButton").disabled=true;
-document.querySelector("#resBtn").disabled=true;
-document.querySelector("#codeInput").onkeyup =() =>{
-if (document.querySelector("#codeInput").value.length>0){
-document.querySelector("#copyCodeButton").disabled=false;
-document.querySelector("#resBtn").disabled=false;
+// Function to enable or disable buttons based on the input value
+function updateButtonStates() {
+    const inputIsEmpty = document.querySelector("#codeInput").value.trim().length === 0;
+    document.querySelector("#copyCodeButton").disabled = inputIsEmpty;
+    document.querySelector("#resBtn").disabled = inputIsEmpty;
 }
-else
-{
-document.querySelector("#copyCodeButton").disabled=true;
-document.querySelector("#resBtn").disabled=true;
-}
-};
 
+// Initial setup: disable buttons if the textarea is empty
+document.addEventListener("DOMContentLoaded", function() {
+    updateButtonStates();
+    // Set the default tab to open
+    document.querySelector(".tab-button").click();
+});
 
+// Add event listener to update button states based on input
+document.getElementById("codeInput").addEventListener("input", updateButtonStates);
+
+// Function to open tabs
 function openTab(evt, tabName) {
     var i, tabcontent, tabbuttons;
     tabcontent = document.getElementsByClassName("tab-content");
@@ -33,20 +35,17 @@ function openTab(evt, tabName) {
     }
 }
 
+// Function to update the result iframe
 function updateResult() {
     var code = document.getElementById('codeInput').value;
     var iframe = document.getElementById('resultFrame');
     iframe.srcdoc = code;
 }
 
-// Set the default tab to open
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector(".tab-button").click();
-});
-
 // Update the result iframe live as code is typed
 document.getElementById('codeInput').addEventListener('input', updateResult);
 
+// Function to copy code to clipboard
 function copyCode() {
     const code = document.getElementById('codeInput').value;
     navigator.clipboard.writeText(code).then(() => {
@@ -55,3 +54,6 @@ function copyCode() {
         console.error('Could not copy text: ', err);
     });
 }
+
+// Initialize button states on load
+updateButtonStates();
