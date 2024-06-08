@@ -1,4 +1,21 @@
 /* script.js */
+
+
+document.querySelector("#copyCodeButton").disabled=true;
+document.querySelector("#resBtn").disabled=true;
+document.querySelector("#codeInput").onkeyup =() =>{
+if (document.querySelector("#codeInput").value.length>0){
+document.querySelector("#copyCodeButton").disabled=false;
+document.querySelector("#resBtn").disabled=false;
+}
+else
+{
+document.querySelector("#copyCodeButton").disabled=true;
+document.querySelector("#resBtn").disabled=true;
+}
+};
+
+
 function openTab(evt, tabName) {
     var i, tabcontent, tabbuttons;
     tabcontent = document.getElementsByClassName("tab-content");
